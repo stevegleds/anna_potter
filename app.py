@@ -7,7 +7,7 @@ class CastleKilmereMember:
     location = 'England'
 
     def __init__(self, name: str, birthyear: int, sex: str):
-        self._name = name  #todo why _name? not just name?
+        self._name = name  # todo why _name? not just name?
         self.birthyear = birthyear
         self.sex = sex
 
@@ -18,13 +18,16 @@ class CastleKilmereMember:
     def school_headmaster():
         return CastleKilmereMember('Redmond Dalodore', 1939, 'male')
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self._name}, birthyear: {self.birthyear})"
+
 
 class Pupil(CastleKilmereMember):
     """
     Create a Castle Kilmere Pupil
     """
 
-    def __init__(self, name: str, birthyear: int, sex: str, house: str, start_year: int, pet=None):
+    def __init__(self, name: str, birthyear: int, sex: str, house: str, start_year: int, pet: tuple = None):
         super().__init__(name, birthyear, sex)
         self.house = house
         self.start_year = start_year
@@ -80,6 +83,10 @@ class Pupil(CastleKilmereMember):
     def cassidy(cls):
         return cls('Cassidy Ambergem', 2007, 'female', 'House of Courage', 2018, ('Ramses', 'cat'))
 
+    def __repr__(self):
+        return (f"{self.__class__.__name__}"
+                f"({self._name}, birthyear: {self.birthyear}, house: {self.house})")
+
 
 class Professor(CastleKilmereMember):
     """
@@ -101,6 +108,10 @@ class Professor(CastleKilmereMember):
     def blade(cls):
         return cls('Blade Bardock', 1988, 'male', 'Potions', 'House of Ambition')
 
+    def __repr__(self):
+        return (f"{self.__class__.__name__}({self._name}, "
+                f"birthyear: {self.birthyear}, subject: {self.subject})")
+
 
 class Ghost(CastleKilmereMember):
     """
@@ -113,6 +124,10 @@ class Ghost(CastleKilmereMember):
 
         if house is not None:
             self.house = house
+
+    def __repr__(self):
+        return (f"{self.__class__.__name__}({self._name}, "
+                f"birthyear: {self.birthyear}, year of death: {self.year_of_death})")
 
 
 if __name__ == "__main__":
@@ -138,4 +153,6 @@ print(cleon.pet_name, cleon.pet_type)
 print(cleon.location)
 print(cleon.birthyear, cleon.start_year)
 print(CastleKilmereMember.location)
+print(bromley)
+print(cleon)
 
