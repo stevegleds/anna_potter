@@ -6,7 +6,7 @@ class CastleKilmereMember:
     # class attribute
     location = 'England'
 
-    def __init__(self, name, birthyear, sex):
+    def __init__(self, name: str, birthyear: int, sex: str):
         self._name = name  #todo why _name? not just name?
         self.birthyear = birthyear
         self.sex = sex
@@ -24,7 +24,7 @@ class Pupil(CastleKilmereMember):
     Create a Castle Kilmere Pupil
     """
 
-    def __init__(self, name, birthyear, sex, house, start_year, pet=None):
+    def __init__(self, name: str, birthyear: int, sex: str, house: str, start_year: int, pet=None):
         super().__init__(name, birthyear, sex)
         self.house = house
         self.start_year = start_year
@@ -86,7 +86,8 @@ class Professor(CastleKilmereMember):
     Creates a Castle Kilmere professor
     """
 
-    def __init__(self, name, birthyear, sex, subject, house=None):
+    def __init__(self, name: str, birthyear: int, sex: str, subject: str, house=None):
+        # todo why no function annotation for hourse=none?
         super().__init__(name, birthyear, sex)
         self.subject = subject
         if house is not None:
@@ -106,7 +107,7 @@ class Ghost(CastleKilmereMember):
     Creates a Castle Kilmere ghost
     """
 
-    def __init__(self, name, birthyear, sex, year_of_death, house=None):
+    def __init__(self, name: str, birthyear: int, sex: str, year_of_death: int, house=None):
         super().__init__(name, birthyear, sex)
         self.year_of_death = year_of_death
 
