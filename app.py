@@ -1,3 +1,6 @@
+import datetime
+
+
 class CastleKilmereMember:
     """
     Creates a member of the Castle Kilmere School of Magic
@@ -17,6 +20,11 @@ class CastleKilmereMember:
     @staticmethod
     def school_headmaster():
         return CastleKilmereMember('Redmond Dalodore', 1939, 'male')
+
+    @property
+    def age(self):
+        now = datetime.datetime.now().year
+        return now - self.birthyear
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self._name}, birthyear: {self.birthyear})"
@@ -70,6 +78,31 @@ class Pupil(CastleKilmereMember):
             'Horrible': False,
         }
         return grades.get(grade, False)
+
+    @property
+    def elms(self):
+        return self._elms
+
+    @elms.setter
+    def elms(self, subject_and_grade):
+
+        try:
+            subject, grade = subject_and_grade
+        except ValueError:
+            raise ValueError("Pass an iterable with two items: subject and grade")
+
+        passed = self.passed(grade)
+
+        if passed:
+            self._elms[subject] = True
+        else:
+            print('The exam was not passed so no ELM was awarded!')
+
+    @elms.deleter
+    def elms(self):
+        print("Caution, you are deleting this students' ELM's! "
+              "You should only do that if she/he dropped out of school without passing any exam!")
+        del self._elms
 
     @classmethod
     def cleon(cls):
@@ -154,5 +187,5 @@ print(cleon.location)
 print(cleon.birthyear, cleon.start_year)
 print(CastleKilmereMember.location)
 print(bromley)
-print(cleon)
+print(cleon.age)
 
