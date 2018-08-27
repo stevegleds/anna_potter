@@ -13,6 +13,29 @@ class CastleKilmereMember:
         self._name = name  # todo why _name? not just name?
         self.birthyear = birthyear
         self.sex = sex
+        self._traits = {}  # underscore means _traits is internal and may change.
+
+    def add_trait(self, trait, value=True):
+        self._traits[trait] = value
+
+    def print_traits(self):
+        true_traits = [trait for trait, value in self._traits.items() if value]
+        false_traits = [trait for trait, value in self._traits.items() if not value]
+
+        print(f"{self._name} is {', '.join(true_traits)} "
+              f"but not {', '.join(false_traits)}")
+
+    def exhibits_trait(self, trait):
+        try:
+            value = self._traits[trait]
+        except KeyError:
+            print(f"{self._name} does not have a character trait with the name '{trait}'")
+            return
+
+        if value:
+            print(f"Yes, {self._name} is {trait}!")
+        else:
+            print(f"No, {self._name} is not {trait}!")
 
     def says(self, words):
         return f"{self._name} says {words}"
@@ -164,8 +187,12 @@ class Ghost(CastleKilmereMember):
 
 
 if __name__ == "__main__":
-    bromley = CastleKilmereMember('Bromley Huckabee', '1959', 'male')
+    bromley = CastleKilmereMember(name='Bromley Huckabee', birthyear=1959, sex='male')
+    bromley.add_trait("kind")
+    bromley.add_trait("tidy-minded")
+    bromley.add_trait("impatient", value=False)
 
+    bromley.print_traits()
     mirren = Professor.mirren()
     blade = Professor.blade()
     cleon = Pupil.cleon()
