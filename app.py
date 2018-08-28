@@ -1,5 +1,5 @@
 import datetime
-
+from typing import NamedTuple
 
 class CastleKilmereMember:
     """
@@ -186,6 +186,19 @@ class Ghost(CastleKilmereMember):
                 f"birthyear: {self.birthyear}, year of death: {self.year_of_death})")
 
 
+class DarkArmyMember(NamedTuple):
+    name: str
+    birthyear: str
+
+    @property
+    def leader(self):
+        lord_odon = DarkArmyMember('Lord Odon', 1971)
+        return lord_odon
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, birthyear:{self.birthyear})"
+
+
 if __name__ == "__main__":
     bromley = CastleKilmereMember(name='Bromley Huckabee', birthyear=1959, sex='male')
     bromley.add_trait("kind")
@@ -198,7 +211,7 @@ if __name__ == "__main__":
     cleon = Pupil.cleon()
     flynn = Pupil.flynn()
     cassidy = Pupil.cassidy()
-
+    keres = DarkArmyMember('Keres Fulford', 1983)
 
 # cleon = Pupil(name='Cleon Bery',
 #               birthyear=2008,
@@ -215,4 +228,5 @@ print(cleon.birthyear, cleon.start_year)
 print(CastleKilmereMember.location)
 print(bromley)
 print(cleon.age)
-
+print('keres: ', keres)
+print('Leader: ', keres.leader)
