@@ -1,5 +1,7 @@
 import datetime
+from abc import ABCMeta, abstractmethod
 from typing import NamedTuple
+
 
 class CastleKilmereMember:
     """
@@ -199,6 +201,47 @@ class DarkArmyMember(NamedTuple):
         return f"{self.__class__.__name__}({self.name}, birthyear:{self.birthyear})"
 
 
+class Spell(metaclass=ABCMeta):
+    """Creates a spell"""
+    def __init__(self, name: str, incantation: str, effect: str):
+        self.name = name
+        self.incantation = incantation
+        self.effect = effect
+
+    @abstractmethod
+    def cast(self):
+        pass
+
+    @property
+    @abstractmethod
+    def defining_feature(self):
+        pass
+
+    def __repr__(self):
+        return (f"{self.__class__.__name__}({self.name}, "
+                f"incantation: '{self.incantation}', effect: {self.effect})")
+
+
+class Charm(Spell):
+    """
+    Creates a charm  -
+    a spell that alters the inherent qualities of an object
+    """
+    def __init__(self, name: str, incantation: str, effect: str,
+                  difficulty: str = None, min_year: int = None):
+        super(Charm, self).__init__(name, incantation, effect)
+        self.difficulty = difficulty
+        self.min_year = min_year
+
+    @property
+    def defining_feature(self):
+        return ("Alteration of the object's inherent qualities, "
+                "that is, its behaviour and capabilities")
+
+    def cast(self):
+        print(f"{self.incantation}!")
+
+
 if __name__ == "__main__":
     bromley = CastleKilmereMember(name='Bromley Huckabee', birthyear=1959, sex='male')
     bromley.add_trait("kind")
@@ -212,6 +255,18 @@ if __name__ == "__main__":
     flynn = Pupil.flynn()
     cassidy = Pupil.cassidy()
     keres = DarkArmyMember('Keres Fulford', 1983)
+    print(bromley.says("Hello"))
+    print(cleon.pet_name, cleon.pet_type)
+
+    print(cleon.location)
+    print(cleon.birthyear, cleon.start_year)
+    print(CastleKilmereMember.location)
+    print(bromley)
+    print(cleon.age)
+    print('keres: ', keres)
+    print('Leader: ', keres.leader)
+    charm = Charm('Stuporus Ratiato', 'Stuporus Ratiato', 'Makes objects fly', 'simple')
+    print(charm)
 
 # cleon = Pupil(name='Cleon Bery',
 #               birthyear=2008,
@@ -220,13 +275,3 @@ if __name__ == "__main__":
 #               start_year=2018,
 #               pet=('Cotton', 'owl'))
 
-print(bromley.says("Hello"))
-print(cleon.pet_name, cleon.pet_type)
-
-print(cleon.location)
-print(cleon.birthyear, cleon.start_year)
-print(CastleKilmereMember.location)
-print(bromley)
-print(cleon.age)
-print('keres: ', keres)
-print('Leader: ', keres.leader)
